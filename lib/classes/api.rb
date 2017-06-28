@@ -56,5 +56,12 @@ module Quickbase
       tags = Quickbase::Helper.hash_to_xml({:rid => rid.to_s})
       connection.http.post("API_DeleteRecord", tags)
     end
+
+    def add_records_csv(params)
+      options = Array("<clist>"+params[:clist].join('.').to_s+"</clist>")
+      options << Quickbase::Helper.generate_cdata(params[:data])
+      connection.http.post("API_ImportFromCSV", options)
+    end
+
   end
 end

@@ -20,5 +20,15 @@ module Quickbase
         "<field #{attr_name}=#{key.to_s.encode(xml: :attr)}>#{value.to_s.encode(xml: :text)}</field>"
       end
     end
+
+    def self.generate_cdata(resulthash)
+      csvtext = "<records_csv><![CDATA["
+      resulthash.each_with_index do |row,i|
+        csvtext << row.values.to_csv
+      end
+      csvtext << "]]></records_csv>"
+#      puts "csvtext============>#{csvtext}"
+    end
+    
   end
 end
